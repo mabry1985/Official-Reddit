@@ -1,0 +1,23 @@
+<h1>The <strong>Official</strong> Reddit</h1>
+
+<h3>Official Subreddits</h3>
+
+<% if @boards.any? %>
+  <ul>
+    <% @boards.each do |board| %>
+      <li><a href="/boards/<%= board.id %>"><%= board.title %></a></li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>No subreddits available, click new and make the first one.</p>
+<% end %>
+
+<a href="/boards/new">Add a New Subreddit</a>
+
+<!-- <form action="/boards">
+  <div class="form-group">
+    <label for="search">Search</label>
+    <input id="search" name="search" class="form-control" type="text">
+  </div>
+  <button type="submit" class="btn">Go!</button>
+</form> -->

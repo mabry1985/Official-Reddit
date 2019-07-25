@@ -1,0 +1,25 @@
+<h1><%= @board.title %></h1>
+
+<form action="/boards/<%= @board.id %>" method="post">
+  <div class="form-group">
+    <label for="message_header">Message Title</label>
+    <input id="message_header" name="message_header" class="form-control" type="text">
+    <label for="body">Message Body</label>
+    <textarea id="body" name="body" class="form-control" type="text" rows="5" cols="60">
+    </textarea>
+  </div>
+  <button type="submit" class="btn">Add message!</button>
+</form>
+
+
+
+<!-- +++++++++++++++++++++++++++++++++ -->
+<% if @messages.any? %>
+  <ul>
+    <% @messages.each do |message| %>
+      <li><a href="/messages/<%= message.id %>"><%= @message.header %></a></li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>It's lonely in here. Be the first to post a message.</p>
+<% end %>
