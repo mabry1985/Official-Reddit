@@ -22,8 +22,9 @@ post ('/new_board') do
 end
 
 get ('/boards/:id') do
+  @messages = Message.all
   @board = Board.find(params[:id].to_i)
-  @messages = Message.find_by_board(1)
+  @messages = Message.find_by_board(:id)
   erb(:board)
 end
 
@@ -31,9 +32,10 @@ post ('/boards/:id') do
   header = params[:message_header]
   body = params[:body]
   @board = Board.find(params[:id].to_i)
-  @messages = Message.find_by_board(1)
+  @messages = Message.find_by_board(:id)
   @message = Message.new ({:header => header, :body => body, :board_id => @board.id})
   @message.save()
+  @messages.push(@message)
   binding.pry
-  redirect ('/boards/:id')
+  erb (:board)
 end

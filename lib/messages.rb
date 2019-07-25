@@ -3,12 +3,13 @@ class Message
   attr_reader :id, :timestamp
   @@messages = {}
   @@total_rows = 0
-  
+
   def initialize (attributes)
-  @id = id || @@total_rows += 1
-  @timestamp = Time.now
-  @body = attributes.fetch(:body)
-  @board_id = attributes.fetch(:board_id)
+    @id = id || @@total_rows += 1
+    @timestamp = Time.now
+    @header = attributes.fetch(:header)
+    @body = attributes.fetch(:body)
+    @board_id = attributes.fetch(:board_id)
   end
 
   def board
@@ -23,6 +24,10 @@ class Message
       end
     end
     messages
+  end
+
+  def self.all()
+    @@messages.values()
   end
 
  def save
