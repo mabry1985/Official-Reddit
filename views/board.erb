@@ -14,12 +14,23 @@
 
 
 <!-- +++++++++++++++++++++++++++++++++ -->
-<% if @messages.any? %>
-  <ul>
-    <% @messages.each do |message| %>
-      <li><a href="/messages/<%= message.id %>"><%= @message.header %></a></li>
-  <% end %>
+<label for="button">Sort by:</label>
+<form action="/oldest/<%= @board.id %>" method="post">
+  <button type="submit" name="button">I hate you again</button>
+</form>
+<form action="/newest/<%= @board.id %>" method="post">
+  <button type="submit" name="button">I hate you</button>
+</form>
+<% if @board.messages.any? %>
+<ul>
+  <% @board.messages.each do |message| %>
+    <li><a href="/message/<%= message.id %>"><%= message.header %>
+    </a><%= message.timestamp %></li>
+<% end %>
   </ul>
 <% else %>
   <p>It's lonely in here. Be the first to post a message.</p>
 <% end %>
+
+</ul>
+<a href="/">Go Away</a>

@@ -28,14 +28,24 @@ get ('/boards/:id') do
   erb(:board)
 end
 
+post ('/newest/:id') do
+  @messages = Message.sort_time
+  @board = Board.find(params[:id].to_i)
+  # @messages = Message.find_by_board(:id)
+  erb(:board)
+end
+
+post ('/oldest/:id') do
+  @messages = Message.unsort_time
+  @board = Board.find(params[:id].to_i)
+  # @messages = Message.find_by_board(:id)
+  erb(:board)
+end
 post ('/boards/:id') do
   header = params[:message_header]
   body = params[:body]
   @board = Board.find(params[:id].to_i)
-  @messages = Message.find_by_board(:id)
   @message = Message.new ({:header => header, :body => body, :board_id => @board.id})
   @message.save()
-  @messages.push(@message)
-  binding.pry
   erb (:board)
 end

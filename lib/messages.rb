@@ -1,4 +1,7 @@
+require 'pry'
+
 class Message
+  @@count = 0
   attr_accessor :body, :header, :board_id
   attr_reader :id, :timestamp
   @@messages = {}
@@ -32,5 +35,26 @@ class Message
 
  def save
    @@messages[self.id] = self
+ end
+
+ def self.sort_time
+   temp_messages = @@messages.sort_by{|key, value| value.timestamp}
+   temp_messages.reverse!
+   @@count += 1
+   @@messages = Hash[temp_messages.map { |key, values| [key, values]}]
+ end
+
+ def self.unsort_time
+   temp_messages = @@messages.sort_by{|key, value| value.timestamp}
+
+   @@count += 1
+   @@messages = Hash[temp_messages.map { |key, values| [key, values]}]
+ end
+
+ def self.q
+   @@count
+ end
+ def self.w
+   @@count = 0
  end
 end
